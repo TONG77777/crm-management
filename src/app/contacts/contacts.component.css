@@ -43,9 +43,10 @@
   }
   
   .mat-card-avatar {
-    width: 100px;
-    height:100px;
-    margin-left: auto; /* Float the avatar to the right */
+    width: 100px; /* Adjust width as needed */
+    height: 75px; /* Adjust height as needed */
+    object-fit: cover; /* Maintain aspect ratio while filling the container */
+    border-radius: 4px; /* Add rounded corners if desired */
   }
   
   .mat-card-content {

@@ -9,10 +9,10 @@ import { CompanyFormComponent } from '../companys/company-form/company-form.comp
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private _dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) { }
 
   openAddEditEmpForm() {
-    this._dialog.open(CompanyFormComponent);
+    this.dialog.open(CompanyFormComponent);
   }
 
   ngOnInit(): void {

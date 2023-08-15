@@ -1,5 +1,8 @@
 <div mat-dialog-title><h1>Company Form</h1></div>
+<form [formGroup]="companyForm" (ngSubmit)="onCompanyFormSubmit()">
+
 <div mat-dialog-content>
+ 
   <div class="row">
     <mat-form-field>
       <mat-label>Company Name</mat-label>
@@ -8,13 +11,14 @@
         type="text"
         name="companyName"
         placeholder="XXX Company"
+        formControlName="companyName"
       />
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Priority</mat-label>
-      <mat-select name="priority">
+      <mat-select name="priority" formControlName="priority">
         <mat-option value="high">High</mat-option>
         <mat-option value="medium">Medium</mat-option>
         <mat-option value="low">Low</mat-option>
@@ -25,7 +29,7 @@
 
       <mat-form-field>
         <mat-label>Date Added</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput [matDatepicker]="picker" formControlName="date_add">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -34,12 +38,13 @@
   <div class="row">
     <mat-form-field>
       <mat-label>Notes</mat-label>
-      <textarea matInput name="notes"></textarea>
+      <textarea matInput name="notes" formControlName="notes"></textarea>
     </mat-form-field>
   </div>
 </div>
 
 <div mat-dialog-actions>
   <button mat-raised-button>Reset</button>
-  <button mat-raised-button color="primary">Submit</button>
+  <button mat-raised-button color="primary" type="submit">Submit</button>
 </div>
+</form>

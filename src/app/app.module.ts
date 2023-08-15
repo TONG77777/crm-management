@@ -23,7 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +53,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     MatMenuModule,
     MatChipsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],
