@@ -1,0 +1,37 @@
+<div class="button-container">
+  <button mat-raised-button color="primary" (click)="openContactForm()">
+    + Contact
+  </button>
+</div>
+
+<div class="cards-container">
+  <mat-card class="example-card" *ngFor="let contact of contacts">
+    <mat-card-header>
+      <mat-card-title
+        >{{ contact.name }} - ({{ contact.title }})</mat-card-title
+      >
+      <mat-card-subtitle>{{ contact.email }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ contact.phone }}</mat-card-subtitle>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <img
+        mat-card-avatar
+        src="https://www.w3schools.com/howto/img_avatar.png"
+      />
+    </mat-card-header>
+    <mat-card-content>
+      {{ contact.notes }}
+    </mat-card-content>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete_forever</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </mat-card>
+</div>

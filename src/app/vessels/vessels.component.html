@@ -1,0 +1,48 @@
+<div class="button-container">
+  <button mat-raised-button color="primary" (click)="openVesselForm()">
+    + Vessel
+  </button>
+</div>
+
+<div class="search-container">
+  <mat-form-field class="search-field">
+    <input matInput placeholder="Search Vessel..." (input)="applyFilter($event.target.value)">
+  </mat-form-field>
+</div>
+
+<div class="cards-container">
+  <mat-card class="example-card" *ngFor="let vessel of vessels">
+    <mat-card-header>
+      <mat-card-title-group>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete_forever</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+        <mat-card-title >{{ vessel.name }}</mat-card-title>
+        <mat-card-subtitle >{{ vessel.code }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ vessel.vpn }}</mat-card-subtitle>
+        
+        <img
+          mat-card-sm-image
+          src="https://www.royalihc.com/sites/default/files/styles/twig_image_landscape_1110_600/public/images/79-803-NewSapura-per%20front%20front.webp?h=bb6fceb9&itok=a9owHK_Q"
+        />
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-chip-list>
+        <mat-chip>{{ vessel.connection }}</mat-chip>
+        <mat-chip>{{ vessel.ip_add }}</mat-chip>
+      </mat-chip-list>
+      {{ vessel.notes }}
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,45 @@
+<div mat-dialog-title><h1>Company Form</h1></div>
+<div mat-dialog-content>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Company Name</mat-label>
+      <input
+        matInput
+        type="text"
+        name="companyName"
+        placeholder="XXX Company"
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Priority</mat-label>
+      <mat-select name="priority">
+        <mat-option value="high">High</mat-option>
+        <mat-option value="medium">Medium</mat-option>
+        <mat-option value="low">Low</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row">
+
+      <mat-form-field>
+        <mat-label>Date Added</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  </div>
+  
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <textarea matInput name="notes"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button>Reset</button>
+  <button mat-raised-button color="primary">Submit</button>
+</div>

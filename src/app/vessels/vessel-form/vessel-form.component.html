@@ -1,0 +1,49 @@
+<p>vessels works!</p>
+<div mat-dialog-title><h1>Vessel Form</h1></div>
+<div mat-dialog-content>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Vessel Name</mat-label>
+      <input matInput type="text" name="vesselName" placeholder="XXXXXX" />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Vessel Code</mat-label>
+      <input matInput type="text" name="vesselCode" placeholder="XXXXXX" />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>IP Address</mat-label>
+      <input matInput type="text" name="ip_add" placeholder="192.168.XXX.XXX" />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Connection</mat-label>
+      <mat-select name="connection">
+        <!-- <mat-option value="remote_desktop">Remote Desktop</mat-option>
+        <mat-option value="team_viewer">TeamViewer</mat-option> -->
+        <mat-option *ngFor="let connection of connections" [value]="connection">{{ connection}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>VPN</mat-label>
+      <input matInput type="text" name="vpn" placeholder="Email/Password" />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <textarea matInput name="notes"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button>Reset</button>
+  <button mat-raised-button color="primary">Submit</button>
+</div>
