@@ -1,12 +1,51 @@
+.main-body {
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1400px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
 table {
-    width: 100%;
-  }
-  
-  .mat-mdc-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  td, th {
-    width: 25%;
-  }
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  width: fit-content;
+}
+
+.high {
+  background-color: #f44336;
+  color: white;
+}
+
+.medium {
+  background-color: #ffc107;
+  color: black;
+}
+
+.low {
+  background-color: #4caf50;
+  color: white;
+}
+
+.mat-column-id{
+    width:100px;
+}

@@ -24,6 +24,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +58,10 @@ import { MatTableModule } from '@angular/material/table';
     MatCardModule,
     MatMenuModule,
     MatChipsModule,
-    MatTableModule
+    MatTableModule,
+    MatBadgeModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],
