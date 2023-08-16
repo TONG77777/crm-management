@@ -23,8 +23,6 @@
     <mat-form-field>
       <mat-label>Connection</mat-label>
       <mat-select name="connection">
-        <!-- <mat-option value="remote_desktop">Remote Desktop</mat-option>
-        <mat-option value="team_viewer">TeamViewer</mat-option> -->
         <mat-option *ngFor="let connection of connections" [value]="connection">{{ connection}}</mat-option>
       </mat-select>
     </mat-form-field>

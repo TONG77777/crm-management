@@ -1,0 +1,11 @@
+<div class="main-body">
+  <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="onTabChange($event)">
+    <mat-tab label="Contacts">
+      <router-outlet></router-outlet>
+    </mat-tab>
+    <mat-tab label="Vessels">
+      <router-outlet></router-outlet>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

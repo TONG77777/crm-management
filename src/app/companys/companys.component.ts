@@ -7,6 +7,7 @@ import { Company } from './company.model';
 import { CompanyService } from '../services/company.service';
 import { CompanyFormComponent } from './company-form/company-form.component';
 
+
 @Component({
   selector: 'app-companys',
   templateUrl: './companys.component.html',
@@ -27,14 +28,12 @@ export class CompanysComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private compService: CompanyService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private compService: CompanyService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
+
     this.companys = this.compService.getCompanys();
-    //   console.log('Companys:', this.companys);
+      // console.log('Companys:', this.companys);
     this.dataSource = new MatTableDataSource(this.companys);
     //   console.log('DataSource:', this.dataSource);
     this.dataSource.sort = this.sort;
@@ -61,13 +60,15 @@ export class CompanysComponent implements OnInit {
     this.compService.deleteCompany(id);
   }
 
-  openEditForm(id:number) {
+  openEditForm(id: number) {
     const dialogRef = this.dialog.open(CompanyFormComponent, {
-      data: { companyId: id }, // Pass the id as data to the dialog
+      data: { companyId: id }, // pass id 
     });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      // Handle dialog close if needed
-    });
+
+    // dialogRef.afterClosed().subscribe((result) => {
+
+    // });
   }
+
+
 }

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
 import { CompanysComponent } from './companys/companys.component';
@@ -27,7 +28,27 @@ import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CompanyDetailsComponent } from './companys/company-details/company-details.component';
 
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/companys', pathMatch: 'full' },
+  {
+    path: 'companys',
+    component: CompanysComponent,
+  },
+  {
+    path: 'companys/:id/details',
+    component: CompanyDetailsComponent,
+    children: [
+      { path: '', redirectTo: 'contacts', pathMatch: 'full' },
+      { path: 'contacts', component: ContactsComponent },
+      { path: 'vessels', component: VesselsComponent },
+    ],
+  },
+  { path: 'not-found', component: PageNotFoundComponent },
+  { path: '**', redirectTo: 'not-found' },
+];
 
 @NgModule({
   declarations: [
@@ -39,6 +60,8 @@ import { MatSortModule } from '@angular/material/sort';
     CompanyFormComponent,
     ContactFormComponent,
     VesselFormComponent,
+    PageNotFoundComponent,
+    CompanyDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +84,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatBadgeModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent],

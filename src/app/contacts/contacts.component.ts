@@ -56,7 +56,9 @@ export class ContactsComponent implements OnInit {
 
   constructor(private _dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('ContactsComponent initialized'); 
+  }
   openContactForm() {
     this._dialog.open(ContactFormComponent);
   }

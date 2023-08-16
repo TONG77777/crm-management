@@ -69,7 +69,9 @@ export class VesselsComponent implements OnInit {
   ];
   constructor(private _dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('vessel detail load!');
+  }
 
   openVesselForm() {
     this._dialog.open(VesselFormComponent);
