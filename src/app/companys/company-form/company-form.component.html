@@ -45,6 +45,8 @@
 
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onReset()">Reset</button>
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button mat-raised-button color="primary" type="submit">
+    {{ isEditMode ? 'Edit' : 'Submit' }}
+  </button>
 </div>
 </form>
