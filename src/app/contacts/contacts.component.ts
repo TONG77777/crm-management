@@ -28,28 +28,18 @@ export class ContactsComponent implements OnInit {
       this.company = this.companyService.getCompany(this.id);
     });
   }
-  // openContactForm() {
-  //   this.dialog.open(ContactFormComponent);
-  // }
-  // openContactForm(companyId: number) {
-  //   const dialogRef = this.dialog.open(ContactFormComponent, {
-  //     data: { companyId: companyId }
-  //   });
-  
-  //   dialogRef.afterClosed().subscribe((newContact) => {
-  //     if (newContact) {
-  //       // Assuming 'newContact' is the created contact object
-  //       this.company.contacts.push(newContact);
-  //       this.companyService.updateCompany(this.company);
-  //     }
-  //   });
-  // }
-  openContactForm(companyId: number) {
+
+  openEditForm(contactIndex: number, companyId: number) {
     const dialogRef = this.dialog.open(ContactFormComponent, {
-      data: { companyId: companyId }
+      data: { contactIndex: contactIndex, companyId: companyId, isEditMode:true },
     });
   }
-  
+
+  openContactForm(companyId: number) {
+    const dialogRef = this.dialog.open(ContactFormComponent, {
+      data: { companyId: companyId },
+    });
+  }
 
   onDeleteContact(contactIndex: number) {
     if (this.company && this.company.contacts) {
@@ -59,5 +49,4 @@ export class ContactsComponent implements OnInit {
       }
     }
   }
-  
 }

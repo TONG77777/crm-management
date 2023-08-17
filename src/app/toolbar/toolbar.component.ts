@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class ToolbarComponent implements OnInit {
   constructor(private dialog: MatDialog, private router: Router) {}
 
-  openAddEditEmpForm() {
+  openCompForm() {
     this.dialog.open(CompanyFormComponent);
   }
 

@@ -410,8 +410,5 @@ export class CompanyService {
     if (index !== -1) {
       this.companys[index] = updatedCompany;
     }
-    // Optionally, you might want to make an HTTP request to update the company data on the server.
-    // Example:
-    // return this.http.put(`your_api_endpoint/${updatedCompany.id}`, updatedCompany);
   }
 }

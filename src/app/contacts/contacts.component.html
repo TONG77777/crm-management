@@ -24,7 +24,7 @@
       {{ contact.notes }}
     </mat-card-content>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="openEditForm(i,id)">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>

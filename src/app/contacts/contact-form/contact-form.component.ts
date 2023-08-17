@@ -18,11 +18,13 @@ export class ContactFormComponent implements OnInit {
   contactForm: FormGroup;
   isEditMode: boolean = false;
   CompanyContacts = new FormArray([]);
-
+  companyId: number;
+  
   constructor(
     private fb: FormBuilder,
     private compService: CompanyService,
     private dialogRef: MatDialogRef<ContactFormComponent>,
+
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.contactForm = this.fb.group({
@@ -41,7 +43,17 @@ export class ContactFormComponent implements OnInit {
     return (this.contactForm.get('contacts') as FormArray).controls;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.data.isEditMode){
+      this.isEditMode = true; 
+      const companyId = this.data.companyId;
+      const contactIndex = this.data.contactIndex;
+      const company = this.compService.getCompanyById(companyId);
+      const contact = company.contacts[contactIndex];
+      this.contactForm.patchValue(contact);
+    }
+  }
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -62,30 +74,37 @@ export class ContactFormComponent implements OnInit {
   }
 
   onContactFormSubmit() {
-    const newContactFormGroup = this.fb.group({
-      contactName: this.contactForm.value.contactName,
-      title: this.contactForm.value.title,
-      email: this.contactForm.value.email,
-      phone: this.contactForm.value.phone,
-      notes: this.contactForm.value.notes,
-    });
+    if (this.isEditMode) {
+      const companyId = this.data.companyId;
+      const contactIndex = this.data.contactIndex;
+      const company = this.compService.getCompanyById(companyId);
+      company.contacts[contactIndex] = this.contactForm.value;
+    } else {
+      const newContactFormGroup = this.fb.group({
+        contactName: this.contactForm.value.contactName,
+        title: this.contactForm.value.title,
+        email: this.contactForm.value.email,
+        phone: this.contactForm.value.phone,
+        notes: this.contactForm.value.notes,
+      });
+      console.log(this.contactForm.value);
+      console.log('Add contact successfully');
 
-    (this.contactForm.get('contacts') as FormArray).push(newContactFormGroup);
+      (this.contactForm.get('contacts') as FormArray).push(newContactFormGroup);
 
-    const newContact = {
-      contactId: this.generateNewContactId(),
-      contactName: newContactFormGroup.value.contactName,
-      title: newContactFormGroup.value.title,
-      email: newContactFormGroup.value.email,
-      phone: newContactFormGroup.value.phone,
-      notes: newContactFormGroup.value.notes,
-    };
+      const newContact = {
+        contactId: this.generateNewContactId(),
+        contactName: newContactFormGroup.value.contactName,
+        title: newContactFormGroup.value.title,
+        email: newContactFormGroup.value.email,
+        phone: newContactFormGroup.value.phone,
+        notes: newContactFormGroup.value.notes,
+      };
 
-    const companyId = this.data.companyId;
-    const company = this.compService.getCompanyById(companyId);
-    company.contacts.push(newContact);
-    console.log('Add contact successfully');
-
+      const companyId = this.data.companyId;
+      const company = this.compService.getCompanyById(companyId);
+      company.contacts.push(newContact);
+    }
     this.dialogRef.close();
     this.contactForm.reset();
   }
