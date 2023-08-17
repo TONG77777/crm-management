@@ -1,15 +1,16 @@
 <div mat-dialog-title><h1>Contact Form</h1></div>
+<form [formGroup]="contactForm" (ngSubmit)="onContactFormSubmit()">
 <div mat-dialog-content>
   <div class="row">
     <mat-form-field>
       <mat-label>Contact Name</mat-label>
-      <input matInput type="text" name="contactName" placeholder="XXXXXXXXX" />
+      <input matInput type="text" name="contactName" placeholder="XXXXXXXXX"  formControlName="contactName"/>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Title</mat-label>
-      <input matInput type="text" name="title" placeholder="XXXXXXXXX" />
+      <input matInput type="text" name="title" placeholder="XXXXXXXXX"  formControlName="title"/>
     </mat-form-field>
   </div>
   <div class="row"></div>
@@ -19,6 +20,7 @@
       <input
         type="email"
         matInput
+        formControlName="email"
         [formControl]="emailFormControl"
         placeholder="people@example.com"
       />
@@ -39,19 +41,22 @@
     <mat-form-field>
       <mat-label>Telephone</mat-label>
       <span matPrefix>+60 &nbsp;</span>
-      <input type="tel" matInput placeholder="1234567890" />
+      <input type="tel" matInput placeholder="1234567890"  formControlName="phone"/>
     </mat-form-field>
   </div>
 
   <div class="row">
     <mat-form-field>
       <mat-label>Notes</mat-label>
-      <textarea matInput name="notes"></textarea>
+      <textarea matInput name="notes"  formControlName="notes"></textarea>
     </mat-form-field>
   </div>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button>Reset</button>
-  <button mat-raised-button color="primary">Submit</button>
+  <button mat-raised-button (click)="onReset()">Reset</button>
+  <button mat-raised-button color="primary" type="submit">
+    {{ isEditMode ? 'Edit' : 'Submit' }}
+  </button>
 </div>
+</form>

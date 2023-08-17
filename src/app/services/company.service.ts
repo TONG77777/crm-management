@@ -74,7 +74,7 @@ export class CompanyService {
           'The Shiba2 Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.'
         ),
         new Contact(
-          1,
+          3,
           'People 5',
           'Manager',
           'people5@example.com',
@@ -84,7 +84,7 @@ export class CompanyService {
       ],
       [
         new Vessel(
-          2,
+          1,
           'Vessel 2',
           '#V00002',
           '192.168.0.252',
@@ -93,7 +93,7 @@ export class CompanyService {
           'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
         ),
         new Vessel(
-          3,
+          2,
           'Vessel 3',
           '#V00003',
           '192.168.0.253',
@@ -403,5 +403,15 @@ export class CompanyService {
       this.companyChanged.next(this.companys.slice());
       alert('Company successfully edited.');
     }
+  }
+
+  updateCompany(updatedCompany: Company) {
+    const index = this.companys.findIndex(company => company.id === updatedCompany.id);
+    if (index !== -1) {
+      this.companys[index] = updatedCompany;
+    }
+    // Optionally, you might want to make an HTTP request to update the company data on the server.
+    // Example:
+    // return this.http.put(`your_api_endpoint/${updatedCompany.id}`, updatedCompany);
   }
 }

@@ -1,11 +1,11 @@
 <div class="button-container">
-  <button mat-raised-button color="primary" (click)="openContactForm()">
+  <button mat-raised-button color="primary" (click)="openContactForm(id)">
     + Contact
   </button>
 </div>
 
 <div class="cards-container">
-  <mat-card class="example-card" *ngFor="let contact of company.contacts">
+  <mat-card class="example-card" *ngFor="let contact of company.contacts; let i = index">
     <mat-card-header>
       <mat-card-title
         >{{ contact.contactName }} - ({{ contact.title }})</mat-card-title
@@ -28,7 +28,7 @@
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="onDeleteContact(i)">
         <mat-icon>delete_forever</mat-icon>
         <span>Delete</span>
       </button>

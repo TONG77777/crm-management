@@ -6,8 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Company } from './company.model';
 import { CompanyService } from '../services/company.service';
 import { CompanyFormComponent } from './company-form/company-form.component';
-import { Contact } from '../contacts/contact.model';
-import { Vessel } from '../vessels/vessel.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({

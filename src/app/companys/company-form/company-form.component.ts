@@ -16,7 +16,7 @@ export class CompanyFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
+    private compService: CompanyService,
     private dialogRef: MatDialogRef<CompanyFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { companyId: number }
   ) {
@@ -30,7 +30,7 @@ export class CompanyFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.companyId) {
       this.isEditMode = true;
-      const company = this.companyService.getCompanyById(this.data.companyId);
+      const company = this.compService.getCompanyById(this.data.companyId);
       if (company) {
         this.populateFormFields(company);
       }
@@ -69,10 +69,10 @@ export class CompanyFormComponent implements OnInit {
           vessels: [],
         };
 
-        this.companyService.editCompany(editedCompany);
+        this.compService.editCompany(editedCompany);
       } else {
         //get existing companyId
-        const existingIds = this.companyService
+        const existingIds = this.compService
           .getCompanys()
           .map((company) => company.id);
         const newId = Math.max(...existingIds) + 1;
@@ -87,7 +87,7 @@ export class CompanyFormComponent implements OnInit {
           vessels: [],
         };
 
-        this.companyService.addCompany(newCompany);
+        this.compService.addCompany(newCompany);
       }
 
       this.dialogRef.close();

@@ -28,7 +28,36 @@ export class ContactsComponent implements OnInit {
       this.company = this.companyService.getCompany(this.id);
     });
   }
-  openContactForm() {
-    this.dialog.open(ContactFormComponent);
+  // openContactForm() {
+  //   this.dialog.open(ContactFormComponent);
+  // }
+  // openContactForm(companyId: number) {
+  //   const dialogRef = this.dialog.open(ContactFormComponent, {
+  //     data: { companyId: companyId }
+  //   });
+  
+  //   dialogRef.afterClosed().subscribe((newContact) => {
+  //     if (newContact) {
+  //       // Assuming 'newContact' is the created contact object
+  //       this.company.contacts.push(newContact);
+  //       this.companyService.updateCompany(this.company);
+  //     }
+  //   });
+  // }
+  openContactForm(companyId: number) {
+    const dialogRef = this.dialog.open(ContactFormComponent, {
+      data: { companyId: companyId }
+    });
   }
+  
+
+  onDeleteContact(contactIndex: number) {
+    if (this.company && this.company.contacts) {
+      if (contactIndex >= 0 && contactIndex < this.company.contacts.length) {
+        this.company.contacts.splice(contactIndex, 1);
+        this.companyService.updateCompany(this.company);
+      }
+    }
+  }
+  
 }
