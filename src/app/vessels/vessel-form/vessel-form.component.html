@@ -1,28 +1,28 @@
-<p>vessels works!</p>
 <div mat-dialog-title><h1>Vessel Form</h1></div>
+<form [formGroup]="vesselForm" (ngSubmit)="onVesselFormSubmit()">
 <div mat-dialog-content>
   <div class="row">
     <mat-form-field>
       <mat-label>Vessel Name</mat-label>
-      <input matInput type="text" name="vesselName" placeholder="XXXXXX" />
+      <input matInput type="text" name="vesselName" placeholder="XXXXXX" formControlName="vesselName"/>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Vessel Code</mat-label>
-      <input matInput type="text" name="vesselCode" placeholder="XXXXXX" />
+      <input matInput type="text" name="code" placeholder="XXXXXX" formControlName="code"/>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>IP Address</mat-label>
-      <input matInput type="text" name="ip_add" placeholder="192.168.XXX.XXX" />
+      <input matInput type="text" name="ip_add" placeholder="192.168.XXX.XXX" formControlName="ip_add"/>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Connection</mat-label>
-      <mat-select name="connection">
+      <mat-select name="connection" formControlName="connection">
         <mat-option *ngFor="let connection of connections" [value]="connection">{{ connection}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -30,18 +30,21 @@
   <div class="row">
     <mat-form-field>
       <mat-label>VPN</mat-label>
-      <input matInput type="text" name="vpn" placeholder="Email/Password" />
+      <input matInput type="text" name="vpn" placeholder="Email/Password" formControlName="vpn"/>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Notes</mat-label>
-      <textarea matInput name="notes"></textarea>
+      <textarea matInput name="notes" formControlName="notes"></textarea>
     </mat-form-field>
   </div>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button>Reset</button>
-  <button mat-raised-button color="primary">Submit</button>
+  <button mat-raised-button (click)="onReset()">Reset</button>
+  <button mat-raised-button color="primary" type="submit">
+    {{ isEditMode ? 'Edit' : 'Submit' }}
+  </button>
 </div>
+</form>

@@ -19,12 +19,11 @@ export class ContactFormComponent implements OnInit {
   isEditMode: boolean = false;
   CompanyContacts = new FormArray([]);
   companyId: number;
-  
+  initialFormState: any;
   constructor(
     private fb: FormBuilder,
     private compService: CompanyService,
     private dialogRef: MatDialogRef<ContactFormComponent>,
-
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.contactForm = this.fb.group({
@@ -35,7 +34,7 @@ export class ContactFormComponent implements OnInit {
       notes: '',
       contacts: this.CompanyContacts,
     });
-
+    this.initialFormState = this.contactForm.value;
     this.CompanyContacts = this.fb.array([]);
   }
 
@@ -60,9 +59,12 @@ export class ContactFormComponent implements OnInit {
   ]);
 
   onReset() {
-    this.contactForm.reset();
+    if (!this.isEditMode) {
+      this.contactForm.setValue(this.initialFormState);
+    }
   }
 
+  
   generateNewContactId(): number {
     const existingContacts = this.contactControls.map(
       (control) => control.value

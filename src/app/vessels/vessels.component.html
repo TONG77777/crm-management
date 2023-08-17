@@ -1,5 +1,5 @@
 <div class="button-container">
-  <button mat-raised-button color="primary" (click)="openVesselForm()">
+  <button mat-raised-button color="primary" (click)="openVesselForm(id)">
     + Vessel
   </button>
 </div>
@@ -11,18 +11,18 @@
 </div>
 
 <div class="cards-container">
-  <mat-card class="example-card" *ngFor="let vessel of company.vessels">
+  <mat-card class="example-card" *ngFor="let vessel of company.vessels; let i = index">
     <mat-card-header>
       <mat-card-title-group>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="openEditForm(i,id)">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="onDeleteVessel(i)">
             <mat-icon>delete_forever</mat-icon>
             <span>Delete</span>
           </button>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Vessel } from '../vessels/vessel.model';
 import { MatDialog } from '@angular/material/dialog';
 import { VesselFormComponent } from '../vessels/vessel-form/vessel-form.component';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -29,9 +28,18 @@ export class VesselsComponent implements OnInit {
     });
   }
 
-  openVesselForm() {
-    this.dialog.open(VesselFormComponent);
+  openEditForm(vesselIndex: number, companyId: number) {
+    const dialogRef = this.dialog.open(VesselFormComponent, {
+      data: { vesselIndex: vesselIndex, companyId: companyId, isEditMode:true },
+    });
   }
+
+  openVesselForm(companyId: number) {
+    const dialogRef = this.dialog.open(VesselFormComponent, {
+      data: { companyId: companyId },
+    });
+  }
+
   applyFilter(filterValue: string): void {
     if (filterValue === '') {
       this.company.vessels = this.company.vessels.slice();
@@ -40,6 +48,15 @@ export class VesselsComponent implements OnInit {
         const valuesToSearch = Object.values(vessel).join(' ').toLowerCase();
         return valuesToSearch.includes(filterValue.toLowerCase());
       });
+    }
+  }
+
+  onDeleteVessel(vesselIndex: number) {
+    if (this.company && this.company.vessels) {
+      if (vesselIndex >= 0 && vesselIndex < this.company.vessels.length) {
+        this.company.vessels.splice(vesselIndex, 1);
+        this.companyService.updateCompany(this.company);
+      }
     }
   }
 }

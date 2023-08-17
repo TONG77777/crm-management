@@ -13,7 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CompanyFormComponent implements OnInit {
   companyForm: FormGroup;
   isEditMode: boolean = false;
-
+  initialFormState: any; 
   constructor(
     private fb: FormBuilder,
     private compService: CompanyService,
@@ -26,6 +26,7 @@ export class CompanyFormComponent implements OnInit {
       date_add: '',
       notes: '',
     });
+    this.initialFormState = this.companyForm.value;
   }
   ngOnInit(): void {
     if (this.data.companyId) {
@@ -47,7 +48,9 @@ export class CompanyFormComponent implements OnInit {
   }
 
   onReset() {
-    this.companyForm.reset();
+    if (!this.isEditMode) {
+      this.companyForm.setValue(this.initialFormState);
+    }
   }
 
   onCompanyFormSubmit() {
@@ -94,4 +97,5 @@ export class CompanyFormComponent implements OnInit {
       this.companyForm.reset();
     }
   }
+
 }

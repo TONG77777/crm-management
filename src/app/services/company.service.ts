@@ -12,7 +12,7 @@ export class CompanyService {
   // companyChanged = new EventEmitter<Company[]>();
 
   companyChanged = new Subject<Company[]>();
-
+  isEditMode : boolean = false;
   private companys: Company[] = [
     new Company(
       1,
@@ -380,6 +380,7 @@ export class CompanyService {
 
   //CRUD
   addCompany(company: Company) {
+    
     this.companys.push(company);
     this.companyChanged.next(this.companys.slice());
     alert('Company successfully created.');
