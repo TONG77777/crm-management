@@ -5,10 +5,10 @@
 </div>
 
 <div class="cards-container">
-  <mat-card class="example-card" *ngFor="let contact of contacts">
+  <mat-card class="example-card" *ngFor="let contact of company.contacts">
     <mat-card-header>
       <mat-card-title
-        >{{ contact.name }} - ({{ contact.title }})</mat-card-title
+        >{{ contact.contactName }} - ({{ contact.title }})</mat-card-title
       >
       <mat-card-subtitle>{{ contact.email }}</mat-card-subtitle>
       <mat-card-subtitle>{{ contact.phone }}</mat-card-subtitle>

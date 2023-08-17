@@ -6,7 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Company } from './company.model';
 import { CompanyService } from '../services/company.service';
 import { CompanyFormComponent } from './company-form/company-form.component';
-
+import { Contact } from '../contacts/contact.model';
+import { Vessel } from '../vessels/vessel.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-companys',
@@ -15,6 +17,7 @@ import { CompanyFormComponent } from './company-form/company-form.component';
 })
 export class CompanysComponent implements OnInit {
   companys: Company[];
+
   displayedColumns: string[] = [
     'id',
     'name',
@@ -28,7 +31,12 @@ export class CompanysComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private compService: CompanyService, private dialog: MatDialog) {}
+  constructor(
+    private compService: CompanyService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
 
@@ -47,6 +55,7 @@ export class CompanysComponent implements OnInit {
     });
   }
 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -62,13 +71,11 @@ export class CompanysComponent implements OnInit {
 
   openEditForm(id: number) {
     const dialogRef = this.dialog.open(CompanyFormComponent, {
-      data: { companyId: id }, // pass id 
+      data: { companyId: id }, // pass id
     });
 
     // dialogRef.afterClosed().subscribe((result) => {
 
     // });
   }
-
-
 }

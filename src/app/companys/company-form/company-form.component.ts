@@ -41,7 +41,7 @@ export class CompanyFormComponent implements OnInit {
     this.companyForm.setValue({
       companyName: company.name,
       priority: company.priority,
-      date_add: new Date(company.date), 
+      date_add: new Date(company.date),
       notes: company.notes,
     });
   }
@@ -57,7 +57,7 @@ export class CompanyFormComponent implements OnInit {
         'yyyy-MM-ddTHH:mm:ss.SSSZ',
         'en-US'
       );
-  
+
       if (this.isEditMode) {
         const editedCompany: Company = {
           id: this.data.companyId,
@@ -65,12 +65,16 @@ export class CompanyFormComponent implements OnInit {
           priority: this.companyForm.value.priority,
           date: formattedDate,
           notes: this.companyForm.value.notes,
+          contacts: [],
+          vessels: [],
         };
-  
+
         this.companyService.editCompany(editedCompany);
       } else {
         //get existing companyId
-        const existingIds = this.companyService.getCompanys().map(company => company.id);
+        const existingIds = this.companyService
+          .getCompanys()
+          .map((company) => company.id);
         const newId = Math.max(...existingIds) + 1;
 
         const newCompany: Company = {
@@ -79,15 +83,15 @@ export class CompanyFormComponent implements OnInit {
           priority: this.companyForm.value.priority,
           date: formattedDate,
           notes: this.companyForm.value.notes,
-          
+          contacts: [],
+          vessels: [],
         };
-  
+
         this.companyService.addCompany(newCompany);
       }
-  
+
       this.dialogRef.close();
       this.companyForm.reset();
     }
   }
-  
 }

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Vessel } from '../vessels/vessel.model';
 import { MatDialog } from '@angular/material/dialog';
 import { VesselFormComponent } from '../vessels/vessel-form/vessel-form.component';
+import { ActivatedRoute, Params } from '@angular/router';
+import { CompanyService } from '../services/company.service';
+import { Company } from '../companys/company.model';
 
 @Component({
   selector: 'app-vessels',
@@ -9,72 +12,34 @@ import { VesselFormComponent } from '../vessels/vessel-form/vessel-form.componen
   styleUrls: ['./vessels.component.css'],
 })
 export class VesselsComponent implements OnInit {
-  vessels: Vessel[] = [
-    new Vessel(
-      'Vessel 1',
-      '#V00001',
-      '192.168.0.251',
-      'Remote Desktop',
-      'vessel@example.com',
-      'The vessel, a majestic oceanic giant, navigates through azure waves, defying the horizon s embrace. Its towering mast dances with the winds rhythm, whispering tales of distant lands. A canvas of sails captures sunbeams, illuminating its voyage. '
-    ),
-    new Vessel(
-      'Vessel 2',
-      '#V00002',
-      '192.168.0.252',
-      'TeamViewer',
-      'vessel2@example.com',
-      'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
-    ),
-    new Vessel(
-      'Vessel 2',
-      '#V00002',
-      '192.168.0.252',
-      'TeamViewer',
-      'vessel2@example.com',
-      'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
-    ),
-    new Vessel(
-      'Vessel 2',
-      '#V00002',
-      '192.168.0.252',
-      'TeamViewer',
-      'vessel2@example.com',
-      'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
-    ),
-    new Vessel(
-      'Vessel 2',
-      '#V00002',
-      '192.168.0.252',
-      'TeamViewer',
-      'vessel2@example.com',
-      'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
-    ),
-    new Vessel(
-      'Vessel 2',
-      '#V00002',
-      '192.168.0.252',
-      'TeamViewer',
-      'vessel2@example.com',
-      'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
-    ),
-    new Vessel(
-      'Vessel 2',
-      '#V00002',
-      '192.168.0.252',
-      'TeamViewer',
-      'vessel2@example.com',
-      'The vessel, a majestic ship that gracefully navigates the open seas, holds a captivating allure.'
-    ),
-  ];
-  constructor(private _dialog: MatDialog) {}
+  company: Company;
+  id: number;
+
+  constructor(
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private companyService: CompanyService
+  ) {}
 
   ngOnInit(): void {
-    console.log('vessel detail load!');
+    console.log('VesselComponent initialized');
+    this.route.parent?.params.subscribe((params: Params) => {
+      this.id = +params['id'];
+      this.company = this.companyService.getCompany(this.id);
+    });
   }
 
   openVesselForm() {
-    this._dialog.open(VesselFormComponent);
+    this.dialog.open(VesselFormComponent);
   }
-  applyFilter($event) {}
+  applyFilter(filterValue: string): void {
+    if (filterValue === '') {
+      this.company.vessels = this.company.vessels.slice();
+    } else {
+      this.company.vessels = this.company.vessels.filter((vessel) => {
+        const valuesToSearch = Object.values(vessel).join(' ').toLowerCase();
+        return valuesToSearch.includes(filterValue.toLowerCase());
+      });
+    }
+  }
 }
