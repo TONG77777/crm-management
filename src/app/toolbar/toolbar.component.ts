@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyFormComponent } from '../companys/company-form/company-form.component'; 
 import { Router } from '@angular/router';
+import { Company2Service } from '../services/company2.service';
+import { Company } from '../companys/company.model';
+
 
 @Component({
   selector: 'app-toolbar',
@@ -9,11 +12,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent implements OnInit {
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(
+    private dialog: MatDialog, 
+    private router: Router,
+    private compService: Company2Service
+    ) {}
   showButton: boolean = true;
   
-  openCompForm() {
-    this.dialog.open(CompanyFormComponent);
+
+
+  getCompanyList() {
+    this.compService.getCompanyList().subscribe({
+      next: (res) => {
+      },
+      error: console.log,
+    });
   }
 
   ngOnInit(): void {

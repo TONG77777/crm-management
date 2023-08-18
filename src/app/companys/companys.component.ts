@@ -3,8 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { Company } from './company.model';
-import { CompanyService } from '../services/company.service';
+import { Company2Service } from '../services/company2.service';
 import { CompanyFormComponent } from './company-form/company-form.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -14,8 +13,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./companys.component.css'],
 })
 export class CompanysComponent implements OnInit {
-  companys: Company[];
-
   displayedColumns: string[] = [
     'id',
     'name',
@@ -24,32 +21,32 @@ export class CompanysComponent implements OnInit {
     'notes',
     'menu',
   ];
-  dataSource: MatTableDataSource<Company>;
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private compService: CompanyService,
+    private compService: Company2Service,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-
-    this.companys = this.compService.getCompanys();
-    this.dataSource = new MatTableDataSource(this.companys);
-
-    this.compService.companyChanged.subscribe((updatedCompanies: Company[]) => {
-      this.companys = updatedCompanies;
-      this.dataSource.data = updatedCompanies;
-    });
+    this.getCompanyList();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  getCompanyList() {
+    this.compService.getCompanyList().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: console.log,
+    });
   }
 
   applyFilter(event: Event) {
@@ -62,12 +59,40 @@ export class CompanysComponent implements OnInit {
   }
 
   deleteCompany(id: number) {
-    this.compService.deleteCompany(id);
+    this.compService.deleteCompany(id).subscribe({
+      next: (res) => {
+        alert('Delete Company Successfully');
+        this.getCompanyList();
+      },
+      error: console.log,
+    });
   }
 
-  openEditForm(id: number) {
+  openEditForm(data: any) {
+    console.log(data);
     const dialogRef = this.dialog.open(CompanyFormComponent, {
-      data: { companyId: id }, // pass id
+      data,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getCompanyList();
+        }
+      },
+      error: console.log,
+    });
+  }
+
+  openAddForm() {
+    const dialogRef = this.dialog.open(CompanyFormComponent)
+    ;
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getCompanyList();
+        }
+      },
+      error: console.log,
     });
   }
 }

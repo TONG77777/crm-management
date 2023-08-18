@@ -1,5 +1,9 @@
 <router-outlet></router-outlet>
 <div class="main-body">
+  
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="openAddForm()">+ Company</button>
+  </div>
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input
@@ -9,7 +13,6 @@
       #input
     />
   </mat-form-field>
-
   <div class="table-container">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       <!-- ID Column -->
@@ -72,7 +75,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openEditForm(company.id)">
+            <button mat-menu-item (click)="openEditForm(company)">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>

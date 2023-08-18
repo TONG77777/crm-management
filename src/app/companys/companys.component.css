@@ -6,6 +6,11 @@
     width: 100%;
   }
 }
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px;
+}
 
 table {
   overflow-x: auto;

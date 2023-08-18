@@ -3,6 +3,7 @@ import { Company } from '../companys/company.model';
 import { Vessel } from '../vessels/vessel.model';
 import { Contact } from '../contacts/contact.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -360,9 +361,7 @@ export class CompanyService {
       ]
     ),
   ];
-  constructor() {}
-
-
+  constructor(private http:HttpClient) {}
 
   getCompanys() {
     return this.companys.slice();
@@ -378,7 +377,6 @@ export class CompanyService {
 
   //CRUD
   addCompany(company: Company) {
-    
     this.companys.push(company);
     this.companyChanged.next(this.companys.slice());
     alert('Company successfully created.');

@@ -9,12 +9,12 @@
       <input
         matInput
         type="text"
-        name="companyName"
+        name="name"
         placeholder="XXX Company"
-        formControlName="companyName"
+        formControlName="name"
         required
       />
-      <mat-error *ngIf="companyForm.get('companyName').hasError('required')">
+      <mat-error *ngIf="companyForm.get('name').hasError('required')">
          is <strong>required</strong>
       </mat-error>
     </mat-form-field>
@@ -35,10 +35,10 @@
   <div class="row">
       <mat-form-field>
         <mat-label>Date Added</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date_add" required>
+        <input matInput [matDatepicker]="picker" formControlName="date" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="companyForm.get('date_add').hasError('required')">
+        <mat-error *ngIf="companyForm.get('date').hasError('required')">
           is <strong>required</strong>
        </mat-error>
       </mat-form-field>

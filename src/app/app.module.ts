@@ -30,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CompanyDetailsComponent } from './companys/company-details/company-details.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/companys', pathMatch: 'full' },
@@ -85,6 +86,7 @@ const appRoutes: Routes = [
     MatBadgeModule,
     MatPaginatorModule,
     MatSortModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],
