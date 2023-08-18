@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import {
   FormControl,
   Validators,
@@ -37,19 +37,23 @@ export class ContactFormComponent implements OnInit {
     this.initialFormState = this.contactForm.value;
     this.CompanyContacts = this.fb.array([]);
   }
-
+  @HostListener('document:keydown.enter', ['$event'])
+  preventSubmit(event: KeyboardEvent): void {
+    event.preventDefault();
+  }
   get contactControls() {
     return (this.contactForm.get('contacts') as FormArray).controls;
   }
 
   ngOnInit(): void {
-    if(this.data.isEditMode){
-      this.isEditMode = true; 
+    if (this.data.isEditMode) {
+      this.isEditMode = true;
       const companyId = this.data.companyId;
       const contactIndex = this.data.contactIndex;
       const company = this.compService.getCompanyById(companyId);
       const contact = company.contacts[contactIndex];
       this.contactForm.patchValue(contact);
+      this.emailFormControl.setValue(contact.email);
     }
   }
 
@@ -62,9 +66,11 @@ export class ContactFormComponent implements OnInit {
     if (!this.isEditMode) {
       this.contactForm.setValue(this.initialFormState);
     }
+    else{
+      this.dialogRef.close();
+    }
   }
 
-  
   generateNewContactId(): number {
     const existingContacts = this.contactControls.map(
       (control) => control.value
@@ -76,38 +82,38 @@ export class ContactFormComponent implements OnInit {
   }
 
   onContactFormSubmit() {
-    if (this.isEditMode) {
+    if (this.contactForm.valid && this.emailFormControl.valid) {
       const companyId = this.data.companyId;
       const contactIndex = this.data.contactIndex;
       const company = this.compService.getCompanyById(companyId);
-      company.contacts[contactIndex] = this.contactForm.value;
-    } else {
-      const newContactFormGroup = this.fb.group({
-        contactName: this.contactForm.value.contactName,
-        title: this.contactForm.value.title,
-        email: this.contactForm.value.email,
-        phone: this.contactForm.value.phone,
-        notes: this.contactForm.value.notes,
-      });
-      console.log(this.contactForm.value);
-      console.log('Add contact successfully');
-
-      (this.contactForm.get('contacts') as FormArray).push(newContactFormGroup);
-
-      const newContact = {
-        contactId: this.generateNewContactId(),
-        contactName: newContactFormGroup.value.contactName,
-        title: newContactFormGroup.value.title,
-        email: newContactFormGroup.value.email,
-        phone: newContactFormGroup.value.phone,
-        notes: newContactFormGroup.value.notes,
-      };
-
-      const companyId = this.data.companyId;
-      const company = this.compService.getCompanyById(companyId);
-      company.contacts.push(newContact);
+  
+      if (this.isEditMode) {
+        const editedContact = company.contacts[contactIndex];
+        Object.assign(editedContact, this.contactForm.value, { email: this.emailFormControl.value });
+        console.log('Edit contact successfully');
+      } else {
+        const newContactFormGroup = this.fb.group({
+          contactName: this.contactForm.value.contactName,
+          title: this.contactForm.value.title,
+          email: this.emailFormControl.value,
+          phone: this.contactForm.value.phone,
+          notes: this.contactForm.value.notes,
+        });
+        
+        (this.contactForm.get('contacts') as FormArray).push(newContactFormGroup);
+  
+        const newContact = {
+          contactId: this.generateNewContactId(),
+          ...newContactFormGroup.value,
+        };
+  
+        company.contacts.push(newContact);
+        console.log('Add contact successfully');
+      }
+  
+      this.dialogRef.close();
+      this.contactForm.reset();
     }
-    this.dialogRef.close();
-    this.contactForm.reset();
   }
+  
 }

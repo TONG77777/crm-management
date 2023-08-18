@@ -1,30 +1,42 @@
 <div mat-dialog-title><h1>Vessel Form</h1></div>
-<form [formGroup]="vesselForm" (ngSubmit)="onVesselFormSubmit()">
+<form [formGroup]="vesselForm" (ngSubmit)="onVesselFormSubmit()" (keydown.enter)="preventSubmit($event)">
 <div mat-dialog-content>
   <div class="row">
     <mat-form-field>
       <mat-label>Vessel Name</mat-label>
-      <input matInput type="text" name="vesselName" placeholder="XXXXXX" formControlName="vesselName"/>
+      <input matInput type="text" name="vesselName" placeholder="XXXXXX" formControlName="vesselName" required/>
+      <mat-error *ngIf="vesselForm.get('vesselName').hasError('required')">
+        is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Vessel Code</mat-label>
-      <input matInput type="text" name="code" placeholder="XXXXXX" formControlName="code"/>
+      <input matInput type="text" name="code" placeholder="XXXXXX" formControlName="code" required/>
+      <mat-error *ngIf="vesselForm.get('code').hasError('required')">
+        is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>IP Address</mat-label>
-      <input matInput type="text" name="ip_add" placeholder="192.168.XXX.XXX" formControlName="ip_add"/>
+      <input matInput type="text" name="ip_add" placeholder="192.168.XXX.XXX" formControlName="ip_add" required/>
+      <mat-error *ngIf="vesselForm.get('ip_add').hasError('required')">
+        is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Connection</mat-label>
-      <mat-select name="connection" formControlName="connection">
+      <mat-select name="connection" formControlName="connection" required>
         <mat-option *ngFor="let connection of connections" [value]="connection">{{ connection}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="vesselForm.get('connection').hasError('required')">
+        is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
@@ -42,7 +54,7 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onReset()">Reset</button>
+  <button mat-raised-button (click)="onReset()"> {{ isEditMode ? 'Cancel' : 'Reset' }}</button>
   <button mat-raised-button color="primary" type="submit">
     {{ isEditMode ? 'Edit' : 'Submit' }}
   </button>

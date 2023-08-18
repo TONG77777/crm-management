@@ -71,9 +71,5 @@ export class CompanysComponent implements OnInit {
     const dialogRef = this.dialog.open(CompanyFormComponent, {
       data: { companyId: id }, // pass id
     });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-
-    // });
   }
 }

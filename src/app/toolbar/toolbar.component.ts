@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
   constructor(private dialog: MatDialog, private router: Router) {}
-
+  showButton: boolean = true;
+  
   openCompForm() {
     this.dialog.open(CompanyFormComponent);
   }

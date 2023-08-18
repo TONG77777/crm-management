@@ -1,5 +1,5 @@
 <div mat-dialog-title><h1>Company Form</h1></div>
-<form [formGroup]="companyForm" (ngSubmit)="onCompanyFormSubmit()">
+<form [formGroup]="companyForm" (ngSubmit)="onCompanyFormSubmit()" (keydown.enter)="preventSubmit($event)">
 
 <div mat-dialog-content>
  
@@ -12,25 +12,35 @@
         name="companyName"
         placeholder="XXX Company"
         formControlName="companyName"
+        required
       />
+      <mat-error *ngIf="companyForm.get('companyName').hasError('required')">
+         is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <mat-label>Priority</mat-label>
-      <mat-select name="priority" formControlName="priority">
+      <mat-select name="priority" formControlName="priority" required>
         <mat-option value="high">High</mat-option>
         <mat-option value="medium">Medium</mat-option>
         <mat-option value="low">Low</mat-option>
       </mat-select>
+      <mat-error *ngIf="companyForm.get('priority').hasError('required')">
+        is <strong>required</strong>
+     </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
       <mat-form-field>
         <mat-label>Date Added</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date_add">
+        <input matInput [matDatepicker]="picker" formControlName="date_add" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="companyForm.get('date_add').hasError('required')">
+          is <strong>required</strong>
+       </mat-error>
       </mat-form-field>
   </div>
   <div class="row">
@@ -42,7 +52,7 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onReset()">Reset</button>
+  <button mat-raised-button (click)="onReset()">{{ isEditMode ? 'Cancel' : 'Reset' }}</button>
   <button mat-raised-button color="primary" type="submit">
     {{ isEditMode ? 'Edit' : 'Submit' }}
   </button>

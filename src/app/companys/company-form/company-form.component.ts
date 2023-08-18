@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject,HostListener } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company.service';
 import { formatDate } from '@angular/common';
 import { Company } from '../company.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-form',
@@ -18,6 +19,7 @@ export class CompanyFormComponent implements OnInit {
     private fb: FormBuilder,
     private compService: CompanyService,
     private dialogRef: MatDialogRef<CompanyFormComponent>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: { companyId: number }
   ) {
     this.companyForm = this.fb.group({
@@ -28,14 +30,20 @@ export class CompanyFormComponent implements OnInit {
     });
     this.initialFormState = this.companyForm.value;
   }
+  @HostListener('document:keydown.enter', ['$event'])
+  preventSubmit(event: KeyboardEvent): void {
+    event.preventDefault();
+  }
   ngOnInit(): void {
-    if (this.data.companyId) {
+  
+    if (this.data && this.data.companyId) {
       this.isEditMode = true;
       const company = this.compService.getCompanyById(this.data.companyId);
       if (company) {
         this.populateFormFields(company);
       }
     }
+   
   }
 
   private populateFormFields(company: Company): void {
@@ -50,6 +58,8 @@ export class CompanyFormComponent implements OnInit {
   onReset() {
     if (!this.isEditMode) {
       this.companyForm.setValue(this.initialFormState);
+    }else{
+      this.dialogRef.close();
     }
   }
 
@@ -92,9 +102,9 @@ export class CompanyFormComponent implements OnInit {
 
         this.compService.addCompany(newCompany);
       }
-
-      this.dialogRef.close();
       this.companyForm.reset();
+      this.dialogRef.close();
+      this.router.navigate(['/companys']);
     }
   }
 

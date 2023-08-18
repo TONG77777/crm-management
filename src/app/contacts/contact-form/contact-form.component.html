@@ -1,10 +1,13 @@
 <div mat-dialog-title><h1>Contact Form</h1></div>
-<form [formGroup]="contactForm" (ngSubmit)="onContactFormSubmit()">
+<form [formGroup]="contactForm" (ngSubmit)="onContactFormSubmit()" (keydown.enter)="preventSubmit($event)">
 <div mat-dialog-content>
   <div class="row">
     <mat-form-field>
       <mat-label>Contact Name</mat-label>
-      <input matInput type="text" name="contactName" placeholder="XXXXXXXXX"  formControlName="contactName"/>
+      <input matInput type="text" name="contactName" placeholder="XXXXXXXXX"  formControlName="contactName" required/>
+      <mat-error *ngIf="contactForm.get('contactName').hasError('required')">
+        is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="row">
@@ -20,9 +23,9 @@
       <input
         type="email"
         matInput
-        formControlName="email"
         [formControl]="emailFormControl"
         placeholder="people@example.com"
+        required
       />
       <mat-error
         *ngIf="
@@ -33,7 +36,7 @@
         Please enter a valid email address
       </mat-error>
       <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
+        is <strong>required</strong>
       </mat-error>
     </mat-form-field>
   </div>
@@ -54,8 +57,8 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onReset()">Reset</button>
-  <button mat-raised-button color="primary" type="submit">
+  <button mat-raised-button (click)="onReset()">{{ isEditMode ? 'Cancel' : 'Reset' }}</button>
+   <button mat-raised-button color="primary" type="submit">
     {{ isEditMode ? 'Edit' : 'Submit' }}
   </button>
 </div>
