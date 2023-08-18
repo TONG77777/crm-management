@@ -1,11 +1,12 @@
 .cards-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 45px;
   padding: 16px;
 }
 
 .example-card {
+  width: 100%;
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -15,6 +16,7 @@
   overflow: hidden;
 }
 
+/* grey-backgroud */
 .mat-card-header {
   display: flex;
   justify-content: space-between;
@@ -22,23 +24,15 @@
   padding: 8px 16px;
   background-color: #f5f5f5;
   border-bottom: 1px solid #e0e0e0;
+  border-radius: 8px;
+  height: 120px;
 }
 
-.mat-card-header button {
-  margin-left: auto;
-}
-
-.mat-card-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.mat-card-subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
+.mat-card-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .mat-card-avatar {
@@ -48,6 +42,12 @@
   border-radius: 4px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px;
+}
+
 .mat-card-content {
   padding: 8px;
   font-size: 14px;
@@ -55,8 +55,24 @@
   text-align: justify;
 }
 
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin: 16px;
+@media screen and (max-width: 1200px) {
+  .cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cards-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .mat-card-header-content {
+    padding: 16px;
+  }
 }
