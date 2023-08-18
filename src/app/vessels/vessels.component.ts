@@ -13,6 +13,7 @@ import { Company } from '../companys/company.model';
 export class VesselsComponent implements OnInit {
   company: Company;
   id: number;
+  unfilteredVessels: any[];
 
   constructor(
     private dialog: MatDialog,
@@ -25,6 +26,7 @@ export class VesselsComponent implements OnInit {
     this.route.parent?.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.company = this.companyService.getCompany(this.id);
+      this.unfilteredVessels = [...this.company.vessels];
     });
   }
 
@@ -41,10 +43,14 @@ export class VesselsComponent implements OnInit {
   }
 
   applyFilter(filterValue: string): void {
+    if (!this.unfilteredVessels) {
+      return;
+    }
+
     if (filterValue === '') {
-      this.company.vessels = this.company.vessels.slice();
+      this.company.vessels = [...this.unfilteredVessels];
     } else {
-      this.company.vessels = this.company.vessels.filter((vessel) => {
+      this.company.vessels = this.unfilteredVessels.filter((vessel) => {
         const valuesToSearch = Object.values(vessel).join(' ').toLowerCase();
         return valuesToSearch.includes(filterValue.toLowerCase());
       });
