@@ -39,13 +39,7 @@ export class CompanysComponent implements OnInit {
   ngOnInit(): void {
 
     this.companys = this.compService.getCompanys();
-      // console.log('Companys:', this.companys);
     this.dataSource = new MatTableDataSource(this.companys);
-    //   console.log('DataSource:', this.dataSource);
-    this.dataSource.sort = this.sort;
-    //   console.log('Sort:', this.sort);
-    this.dataSource.paginator = this.paginator;
-    //   console.log('Paginator:', this.paginator);
 
     this.compService.companyChanged.subscribe((updatedCompanies: Company[]) => {
       this.companys = updatedCompanies;
@@ -53,6 +47,10 @@ export class CompanysComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

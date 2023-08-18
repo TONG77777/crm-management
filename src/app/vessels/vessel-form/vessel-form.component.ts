@@ -89,7 +89,6 @@ export class VesselFormComponent implements OnInit {
           vpn: this.vesselForm.value.vpn,
           notes: this.vesselForm.value.notes,
         });
-        console.log(this.vesselForm.value);
         console.log('Add vessel successfully');
   
         (this.vesselForm.get('vessels') as FormArray).push(newvesselFormGroup);

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Company } from '../companys/company.model';
-// import { EventEmitter } from '@angular/core';
 import { Vessel } from '../vessels/vessel.model';
 import { Contact } from '../contacts/contact.model';
 import { Subject } from 'rxjs';
@@ -9,7 +8,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CompanyService {
-  // companyChanged = new EventEmitter<Company[]>();
 
   companyChanged = new Subject<Company[]>();
   isEditMode : boolean = false;
