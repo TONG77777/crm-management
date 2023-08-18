@@ -48,69 +48,13 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
-  // onCompanyFormSubmit() {
-  //   if (this.companyForm.valid) {
-  //     const formattedDate = formatDate(
-  //       this.companyForm.value.date,
-  //       'yyyy-MM-ddTHH:mm:ss.SSSZ',
-  //       'en-US'
-  //     );
-
-  //     if (this.isEditMode) {
-  //       const editedCompany: Company = {
-  //         id: this.data.companyId,
-  //         name: this.companyForm.value.name,
-  //         priority: this.companyForm.value.priority,
-  //         date: formattedDate,
-  //         notes: this.companyForm.value.notes,
-  //         contacts: [],
-  //         vessels: [],
-  //       };
-
-  //       this.compService
-  //         .updateCompany(this.data.companyId, editedCompany)
-  //         .subscribe({
-  //           next: (val: any) => {
-  //             alert('Company Edit Successfully');
-  //             this.dialogRef.close(true);
-  //             this.compService.getCompanyList();
-  //           },
-  //           error: console.log,
-  //         });
-  //     } else {
-
-  //       const newCompany: Company = {
-  //         id: 0,
-  //         name: this.companyForm.value.name,
-  //         priority: this.companyForm.value.priority,
-  //         date: formattedDate,
-  //         notes: this.companyForm.value.notes,
-  //         contacts: [],
-  //         vessels: [],
-  //       };
-
-  //       this.compService.addCompany(newCompany).subscribe({
-  //         next: (val: any) => {
-  //           alert('Company Added Successfully');
-  //           this.dialogRef.close(true);
-  //         },
-  //         error: console.log,
-  //       });
-  //     }
-  //     this.companyForm.reset();
-  //     this.dialogRef.close();
-  //     this.router.navigate(['/companys']);
-  //   }
-  // }
-
   onCompanyFormSubmit() {
     if (this.companyForm.valid) {
-      const formattedDate = formatDate(
-        this.companyForm.value.date,
-        'yyyy-MM-ddTHH:mm:ss.SSSZ',
-        'en-US'
-      );
-      if (this.isEditMode) {
+  
+      const originalDate = new Date(this.companyForm.value.date);
+      const formattedDate = originalDate.toISOString();
+      
+      if (this.data) {
         const editedCompany: Company = {
           id: this.data.companyId,
           name: this.companyForm.value.name,
@@ -122,7 +66,7 @@ export class CompanyFormComponent implements OnInit {
         };
 
         this.compService
-          .updateCompany(this.data.companyId, editedCompany)
+          .updateCompany(this.data.id, editedCompany)
           .subscribe({
             next: (val: any) => {
               alert('Company Edit Successfully');

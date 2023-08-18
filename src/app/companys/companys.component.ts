@@ -84,8 +84,7 @@ export class CompanysComponent implements OnInit {
   }
 
   openAddForm() {
-    const dialogRef = this.dialog.open(CompanyFormComponent)
-    ;
+    const dialogRef = this.dialog.open(CompanyFormComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
