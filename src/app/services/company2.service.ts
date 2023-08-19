@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Company } from '../companys/company.model';
-import { Vessel } from '../vessels/vessel.model';
-import { Contact } from '../contacts/contact.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -23,8 +21,7 @@ export class Company2Service {
   }
 
   addCompany(data: any): Observable<any> {
-    // return this.http.post(`http://localhost:3000/companys`, data);
-    return this.http.post(`https://console.firebase.google.com/project/crm-management-f4753/database/crm-management-f4753-default-rtdb/data/~2F`,data);
+    return this.http.post(`http://localhost:3000/companys`, data);
   }
 
   deleteCompany(id: number): Observable<any> {

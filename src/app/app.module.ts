@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
 import { CompanysComponent } from './companys/companys.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+// import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -15,10 +15,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ContactsComponent } from './contacts/contacts.component';
-import { VesselsComponent } from './vessels/vessels.component';
+// import { VesselsComponent } from './vessels/vessels.component';
 import { CompanyFormComponent } from './companys/company-form/company-form.component';
 import { ContactFormComponent } from './contacts/contact-form/contact-form.component';
-import { VesselFormComponent } from './vessels/vessel-form/vessel-form.component';
+// import { VesselFormComponent } from './vessels/vessel-form/vessel-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
@@ -44,7 +44,7 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'contacts', pathMatch: 'full' },
       { path: 'contacts', component: ContactsComponent },
-      { path: 'vessels', component: VesselsComponent },
+      // { path: 'vessels', component: VesselsComponent },
     ],
   },
   { path: 'not-found', component: PageNotFoundComponent },
@@ -55,12 +55,12 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     CompanysComponent,
-    ToolbarComponent,
+    // ToolbarComponent,
     ContactsComponent,
-    VesselsComponent,
+    // VesselsComponent,
     CompanyFormComponent,
     ContactFormComponent,
-    VesselFormComponent,
+    // VesselFormComponent,
     PageNotFoundComponent,
     CompanyDetailsComponent,
   ],

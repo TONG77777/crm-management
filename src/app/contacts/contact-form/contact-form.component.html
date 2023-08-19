@@ -56,7 +56,9 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onReset()">{{ isEditMode ? 'Cancel' : 'Reset' }}</button>
+  <button mat-raised-button type="button" (click)="onReset()">
+    {{ isEditMode ? 'Cancel' : 'Reset' }}
+  </button>
    <button mat-raised-button color="primary" type="submit">
     {{ isEditMode ? 'Edit' : 'Submit' }}
   </button>

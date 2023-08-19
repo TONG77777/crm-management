@@ -1,5 +1,3 @@
-import { Contact } from "../contacts/contact.model";
-import { Vessel } from "../vessels/vessel.model";
 
 export class Company {
     constructor(
@@ -8,8 +6,7 @@ export class Company {
       public priority: string,
       public date: string,
       public notes: string, 
-      public contacts: Contact[],
-      public vessels: Vessel[]
+  
     ) {}
   }
   

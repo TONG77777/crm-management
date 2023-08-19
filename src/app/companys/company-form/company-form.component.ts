@@ -61,8 +61,6 @@ export class CompanyFormComponent implements OnInit {
           priority: this.companyForm.value.priority,
           date: formattedDate,
           notes: this.companyForm.value.notes,
-          contacts: [],
-          vessels: [],
         };
 
         this.compService
@@ -86,8 +84,6 @@ export class CompanyFormComponent implements OnInit {
           priority: this.companyForm.value.priority,
           date: formattedDate,
           notes: this.companyForm.value.notes,
-          contacts: [],
-          vessels: [],
         };
         this.compService.addCompany(newCompany).subscribe({
           next: (val: any) => {

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactFormComponent } from '../contacts/contact-form/contact-form.component';
-import { Company } from '../companys/company.model';
-import { CompanyService } from '../services/company.service';
+
+import { Company2Service } from '../services/company2.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { ContactService } from '../services/contact.service';
+import { Contact } from './contact.model';
 
 @Component({
   selector: 'app-contacts',
@@ -11,42 +13,73 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./contacts.component.css'],
 })
 export class ContactsComponent implements OnInit {
-  company: Company;
-  id: number;
+  contacts: Contact[];
+  companyId: number;
 
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private companyService: CompanyService
+    private companyService: Company2Service,
+    private contService: ContactService
   ) {}
 
   ngOnInit(): void {
     console.log('ContactsComponent initialized');
-
     this.route.parent?.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.company = this.companyService.getCompany(this.id);
+      this.companyId = +params['id'];
+      this.getContactById(this.companyId);
     });
   }
 
-  openEditForm(contactIndex: number, companyId: number) {
+  openEditForm(id: number, data: any, isEditMode: true) {
+    console.log(data);
     const dialogRef = this.dialog.open(ContactFormComponent, {
-      data: { contactIndex: contactIndex, companyId: companyId, isEditMode:true },
+      data: { ...data, isEditMode: true },
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getContactById(data.companyId);
+        }
+      },
+      error: console.log,
     });
   }
 
-  openContactForm(companyId: number) {
+  openAddContactForm(companyId: number, isEditMode: boolean) {
     const dialogRef = this.dialog.open(ContactFormComponent, {
-      data: { companyId: companyId },
+      data: { companyId: companyId, isEditMode: false },
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getContactById(companyId);
+        }
+      },
+      error: console.log,
     });
   }
 
-  onDeleteContact(contactIndex: number) {
-    if (this.company && this.company.contacts) {
-      if (contactIndex >= 0 && contactIndex < this.company.contacts.length) {
-        this.company.contacts.splice(contactIndex, 1);
-        this.companyService.updateCompany(this.company);
-      }
-    }
+  onDeleteContact(id: number, companyId: number) {
+    console.log('hi you are in ondeletecontact');
+    this.contService.deleteContactByCompanyId(id).subscribe({
+      next: (res) => {
+        alert('Delete Contact Successfully');
+        this.getContactById(companyId);
+      },
+      error: console.log,
+    });
+  }
+
+  getContactById(companyId: number): void {
+    this.contService.getContactsByCompanyId(companyId).subscribe({
+      next: (contacts) => {
+        console.log(contacts);
+        this.contacts = contacts;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
