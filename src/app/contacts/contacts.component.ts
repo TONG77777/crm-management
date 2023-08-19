@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactFormComponent } from '../contacts/contact-form/contact-form.component';
-
-import { Company2Service } from '../services/company2.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ContactService } from '../services/contact.service';
 import { Contact } from './contact.model';
@@ -19,7 +17,6 @@ export class ContactsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private companyService: Company2Service,
     private contService: ContactService
   ) {}
 

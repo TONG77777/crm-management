@@ -12,10 +12,6 @@ export class Company2Service {
 
   constructor(private http: HttpClient) {}
 
-  getCompany(id: number): Observable<any> {
-    return this.http.get(`http://localhost:3000/companys/${id}`);
-  }
-
   getCompanyList(): Observable<any> {
     return this.http.get(`http://localhost:3000/companys`);
   }

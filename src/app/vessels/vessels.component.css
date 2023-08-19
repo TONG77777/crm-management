@@ -48,18 +48,18 @@
   text-align: justify;
 }
 
-/* Optional: Add some margin to the bottom of each card */
+
 .example-card:not(:last-child) {
   margin-bottom: 16px;
 }
-/* search */
+
 .search-container {
   display: flex;
   justify-content: center;
   padding: 16px;
   border: 1px solid #ccc;
   margin: 16px;
-  width: calc(100% - 32px); /* Adjust as needed */
+  width: calc(100% - 32px); 
   box-sizing: border-box;
 }
 
@@ -67,9 +67,8 @@
   width: 100%;
 }
 
-/* button */
 .button-container {
   display: flex;
   justify-content: flex-end;
-  margin: 16px; /* Optional: Add margin to create a gap */
+  margin: 16px; 
 }

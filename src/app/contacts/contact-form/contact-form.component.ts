@@ -40,9 +40,7 @@ export class ContactFormComponent implements OnInit {
   preventSubmit(event: KeyboardEvent): void {
     event.preventDefault();
   }
-  get contactControls() {
-    return (this.contactForm.get('contacts') as FormArray).controls;
-  }
+
   ngOnInit(): void {
     if (this.data.isEditMode) {
       this.isEditMode = true;
@@ -61,7 +59,6 @@ export class ContactFormComponent implements OnInit {
     if (!isEditMode) {
       this.contactForm.setValue(this.initialFormState);
     } else {
-      //why in here will alert edit successful
       this.dialogRef.close();
     }
   }
@@ -117,7 +114,6 @@ export class ContactFormComponent implements OnInit {
             },
           });
       }
-      this.dialogRef.close();
       this.contactForm.reset();
     }
   }

@@ -1,115 +1,115 @@
-// import { Component, OnInit, Inject, HostListener } from '@angular/core';
-// import {
-//   FormControl,
-//   Validators,
-//   FormGroup,
-//   FormBuilder,
-//   FormArray,
-// } from '@angular/forms';
-// import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-// import { CompanyService } from '../../services/company.service';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import {
+  FormControl,
+  Validators,
+  FormGroup,
+  FormBuilder,
+  FormArray,
+} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Vessel } from '../vessel.model';
+import { VesselService } from 'src/app/services/vessel.service';
 
-// @Component({
-//   selector: 'app-vessel-form',
-//   templateUrl: './vessel-form.component.html',
-//   styleUrls: ['./vessel-form.component.css'],
-// })
-// export class VesselFormComponent implements OnInit {
-//   connections: string[] = ['Remote Desktop', 'TeamViewer'];
-//   vesselForm: FormGroup;
-//   isEditMode: boolean = false;
-//   initialFormState: any;
-//   CompanyVessels = new FormArray([]);
-//   companyId: number;
+@Component({
+  selector: 'app-vessel-form',
+  templateUrl: './vessel-form.component.html',
+  styleUrls: ['./vessel-form.component.css'],
+})
+export class VesselFormComponent implements OnInit {
+  connections: string[] = ['Remote Desktop', 'TeamViewer'];
+  vesselForm: FormGroup;
+  isEditMode: boolean = false;
+  initialFormState: any;
 
-//   constructor(
-//     private fb: FormBuilder,
-//     private compService: CompanyService,
-//     private dialogRef: MatDialogRef<VesselFormComponent>,
-//     @Inject(MAT_DIALOG_DATA) public data: any
-//   ) {
-//     this.vesselForm = this.fb.group({
-//       vesselName: '',
-//       code: '',
-//       ip_add: '',
-//       connection: '',
-//       vpn: '',
-//       notes: '',
-//       vessels: this.CompanyVessels,
-//     });
-//     this.initialFormState = this.vesselForm.value;
-//     this.CompanyVessels = this.fb.array([]);
-//   }
-//   @HostListener('document:keydown.enter', ['$event'])
-//   preventSubmit(event: KeyboardEvent): void {
-//     event.preventDefault();
-//   }
-//   get vesselControls() {
-//     return (this.vesselForm.get('vessels') as FormArray).controls;
-//   }
+  constructor(
+    private fb: FormBuilder,
+    private vesService: VesselService,
+    private dialogRef: MatDialogRef<VesselFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.vesselForm = this.fb.group({
+      companyId: '',
+      vesselName: '',
+      code: '',
+      ip_add: '',
+      connection: '',
+      vpn: '',
+      notes: '',
+    });
+    this.initialFormState = this.vesselForm.value;
+  }
+  @HostListener('document:keydown.enter', ['$event'])
+  preventSubmit(event: KeyboardEvent): void {
+    event.preventDefault();
+  }
 
-//   ngOnInit(): void {
-//     if (this.data.isEditMode) {
-//       this.isEditMode = true;
-//       const companyId = this.data.companyId;
-//       const vesselIndex = this.data.vesselIndex;
-//       const company = this.compService.getCompanyById(companyId);
-//       const vessel = company.vessels[vesselIndex];
-//       this.vesselForm.patchValue(vessel);
-//     }
-//   }
-//   onReset() {
-//     if (!this.isEditMode) {
-//       this.vesselForm.setValue(this.initialFormState);
-//     }
-//     else{
-//       this.dialogRef.close();
-//     }
-//   }
+  ngOnInit(): void {
+    if (this.data.isEditMode) {
+      this.isEditMode = true;
+      this.vesselForm.patchValue(this.data);
+    }
+  }
+  onReset() {
+    const isEditMode = this.data.isEditMode;
+    if (!isEditMode) {
+      this.vesselForm.setValue(this.initialFormState);
+    } else {
+      this.dialogRef.close();
+    }
+  }
 
-//   generateNewVesselId(): number {
-//     const existingVessels = this.vesselControls.map((control) => control.value);
-//     const maxId = Math.max(...existingVessels.map((vessel) => vessel.vesselId));
-//     return maxId + 1;
-//   }
+  onVesselFormSubmit() {
+    if (this.vesselForm.valid) {
+      const companyId = this.data.companyId;
+      const isEditMode = this.data.isEditMode;
 
-//   onVesselFormSubmit() {
-//     if(this.vesselForm.valid){
-//       if (this.isEditMode) {
-//         const companyId = this.data.companyId;
-//         const vesselIndex = this.data.vesselIndex;
-//         const company = this.compService.getCompanyById(companyId);
-//         company.vessels[vesselIndex] = this.vesselForm.value;
-//       } else {
-//         const newvesselFormGroup = this.fb.group({
-//           vesselName: this.vesselForm.value.vesselName,
-//           code: this.vesselForm.value.code,
-//           ip_add: this.vesselForm.value.ip_add,
-//           connection: this.vesselForm.value.connection,
-//           vpn: this.vesselForm.value.vpn,
-//           notes: this.vesselForm.value.notes,
-//         });
-//         console.log('Add vessel successfully');
-  
-//         (this.vesselForm.get('vessels') as FormArray).push(newvesselFormGroup);
-  
-//         const newVessel = {
-//           vesselId: this.generateNewVesselId(),
-//           vesselName: newvesselFormGroup.value.vesselName,
-//           code: newvesselFormGroup.value.code,
-//           ip_add: newvesselFormGroup.value.ip_add,
-//           connection: newvesselFormGroup.value.connection,
-//           vpn: newvesselFormGroup.value.vpn,
-//           notes: newvesselFormGroup.value.notes,
-//         };
-  
-//         const companyId = this.data.companyId;
-//         const company = this.compService.getCompanyById(companyId);
-//         company.vessels.push(newVessel);
-//       }
-//       this.dialogRef.close();
-//       this.vesselForm.reset();
-//     }
-    
-//   }
-// }
+      if (isEditMode) {
+        const editVessel: Vessel = {
+          id: this.data.id,
+          companyId: companyId,
+          vesselName: this.vesselForm.value.vesselName,
+          code: this.vesselForm.value.code,
+          ip_add: this.vesselForm.value.ip_add,
+          connection: this.vesselForm.value.connection,
+          vpn: this.vesselForm.value.vpn,
+          notes: this.vesselForm.value.notes,
+        };
+
+        this.vesService.updateVessels(this.data.id, editVessel).subscribe({
+          next: (val: any) => {
+            alert('Vessel Edit Successfully');
+            this.vesService.getVesselsByCompanyId(companyId).subscribe({
+              next: (res) => {
+                this.dialogRef.close(true);
+              },
+              error: console.log,
+            });
+          },
+          error: console.log,
+        });
+      } else {
+        const newVessel: Vessel = {
+          id: 0,
+          companyId: companyId,
+          vesselName: this.vesselForm.value.vesselName,
+          code: this.vesselForm.value.code,
+          ip_add: this.vesselForm.value.ip_add,
+          connection: this.vesselForm.value.connection,
+          vpn: this.vesselForm.value.vpn,
+          notes: this.vesselForm.value.notes,
+        };
+
+        this.vesService.addVesselsByCompanyId(companyId, newVessel).subscribe({
+          next: (val: any) => {
+            alert('Vessel Added successfully');
+            this.dialogRef.close(true);
+          },
+          error: (err: any) => {
+            console.log(err);
+          },
+        });
+      }
+      this.vesselForm.reset();
+    }
+  }
+}

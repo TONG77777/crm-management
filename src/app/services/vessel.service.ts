@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Vessel } from '../vessels/vessel.model';
+Vessel
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +11,21 @@ export class VesselService {
 
   constructor(private http: HttpClient) {}
 
-  getContactList(): Observable<any> {
-    return this.http.get(`http://localhost:3000/vessels`);
+  getVesselsByCompanyId(companyId: number): Observable<Vessel[]> {
+    const params = new HttpParams().set('companyId', companyId.toString());
+    return this.http.get<Vessel[]>('http://localhost:3000/vessels', { params });
   }
 
-  addVessel(data: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/vessels`, data);
+  addVesselsByCompanyId(companyId: number, newVessel: Vessel): Observable<Vessel> {
+    return this.http.post<Vessel>(`http://localhost:3000/vessels?companyId=${companyId}`, newVessel);
   }
 
-  deleteVessel(id: number): Observable<any> {
-    return this.http.delete(`http://localhost:3000/vessels/${id}`);
+  deleteVesselsByCompanyId(vesselId: number): Observable<Vessel[]> {
+    return this.http.delete<Vessel[]>(`http://localhost:3000/vessels/${vesselId}`);
   }
-
-  updateVessel(id: number, data: any): Observable<any> {
-    return this.http.put(`http://localhost:3000/vessels/${id}`, data);
+  
+  updateVessels(vesselId: number, updatedVessel: Vessel): Observable<Vessel> {
+    return this.http.put<Vessel>(`http://localhost:3000/vessels/${vesselId}`, updatedVessel);
   }
 
 }
