@@ -18,7 +18,7 @@ export class VesselsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private vesServive: VesselService
+    private vesServive: VesselService,
   ) {}
 
   ngOnInit(): void {

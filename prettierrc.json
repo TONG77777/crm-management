@@ -8,37 +8,25 @@
   "semi": true,
   "overrides": [
     {
-      "files": [
-        "*.json",
-        ".babelrc"
-      ],
+      "files": ["*.json", ".babelrc"],
       "options": {
         "parser": "json-stringify"
       }
     },
     {
-      "files": [
-        "*.jsonc",
-        "tsconfig*.json"
-      ],
+      "files": ["*.jsonc", "tsconfig*.json"],
       "options": {
         "parser": "json"
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.cjs",
-        "*.mjs"
-      ],
+      "files": ["*.js", "*.cjs", "*.mjs"],
       "options": {
         "parser": "babel"
       }
     },
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "options": {
         "parser": "typescript"
       }

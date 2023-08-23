@@ -1,5 +1,4 @@
 .example-spacer {
-    flex: 1 1 auto;
-    overflow-x: auto;
-  }
-  
+  flex: 1 1 auto;
+  overflow-x: auto;
+}

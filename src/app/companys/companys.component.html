@@ -1,8 +1,9 @@
 <router-outlet></router-outlet>
 <div class="main-body">
-  
   <div class="button-container">
-    <button mat-raised-button color="primary" (click)="openAddForm()">+ Company</button>
+    <button mat-raised-button color="primary" (click)="openAddForm()">
+      + Company
+    </button>
   </div>
   <mat-form-field>
     <mat-label>Filter</mat-label>
@@ -17,7 +18,14 @@
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       <!-- ID Column -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="mat-column-id" mat-sort-header>ID</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="mat-column-id"
+          mat-sort-header
+        >
+          ID
+        </th>
         <td mat-cell *matCellDef="let company" class="mat-column-id">
           {{ company.id }}
         </td>
@@ -27,7 +35,9 @@
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let company">
-            <a [routerLink]="['/companys', company.id,'details']">{{ company.name }}</a>
+          <a [routerLink]="['/companys', company.id, 'details']">{{
+            company.name
+          }}</a>
         </td>
       </ng-container>
 
@@ -45,7 +55,7 @@
       <ng-container matColumnDef="date-add">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Added</th>
         <td mat-cell *matCellDef="let company">
-          {{ company.date | date : "dd/MM/yyyy" }}
+          {{ company.date | date: "dd/MM/yyyy" }}
         </td>
       </ng-container>
 

@@ -25,7 +25,7 @@ export class VesselFormComponent implements OnInit {
     private fb: FormBuilder,
     private vesService: VesselService,
     private dialogRef: MatDialogRef<VesselFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.vesselForm = this.fb.group({
       companyId: '',

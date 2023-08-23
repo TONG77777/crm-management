@@ -2,7 +2,7 @@
   <button
     mat-raised-button
     color="primary"
-    (click)="openAddContactForm(companyId,false)"
+    (click)="openAddContactForm(companyId, false)"
   >
     + Contact
   </button>
@@ -32,13 +32,13 @@
       {{ contact.notes }}
     </mat-card-content>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="openEditForm(contact.id,contact,true)">
+      <button mat-menu-item (click)="openEditForm(contact.id, contact, true)">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>
       <button
         mat-menu-item
-        (click)="onDeleteContact(contact.id,contact.companyId)"
+        (click)="onDeleteContact(contact.id, contact.companyId)"
       >
         <mat-icon>delete_forever</mat-icon>
         <span>Delete</span>

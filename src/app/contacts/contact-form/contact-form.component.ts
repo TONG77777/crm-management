@@ -24,7 +24,7 @@ export class ContactFormComponent implements OnInit {
     private fb: FormBuilder,
     private contService: ContactService,
     private dialogRef: MatDialogRef<ContactFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.contactForm = this.fb.group({
       companyId: '',

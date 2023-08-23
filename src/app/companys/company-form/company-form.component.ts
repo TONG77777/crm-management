@@ -20,7 +20,7 @@ export class CompanyFormComponent implements OnInit {
     private compService: Company2Service,
     private dialogRef: MatDialogRef<CompanyFormComponent>,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.companyForm = this.fb.group({
       name: '',
@@ -50,10 +50,9 @@ export class CompanyFormComponent implements OnInit {
 
   onCompanyFormSubmit() {
     if (this.companyForm.valid) {
-  
       const originalDate = new Date(this.companyForm.value.date);
       const formattedDate = originalDate.toISOString();
-      
+
       if (this.data) {
         const editedCompany: Company = {
           id: this.data.companyId,
@@ -63,20 +62,18 @@ export class CompanyFormComponent implements OnInit {
           notes: this.companyForm.value.notes,
         };
 
-        this.compService
-          .updateCompany(this.data.id, editedCompany)
-          .subscribe({
-            next: (val: any) => {
-              alert('Company Edit Successfully');
-             this.compService.getCompanyList().subscribe({
+        this.compService.updateCompany(this.data.id, editedCompany).subscribe({
+          next: (val: any) => {
+            alert('Company Edit Successfully');
+            this.compService.getCompanyList().subscribe({
               next: (res) => {
                 this.dialogRef.close(true);
               },
               error: console.log,
             });
-            },
-            error: console.log,
-          });
+          },
+          error: console.log,
+        });
       } else {
         const newCompany: Company = {
           id: 0,

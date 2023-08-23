@@ -7,8 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class Company2Service {
-
-  private companys: Company[] ;
+  private companys: Company[];
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +26,4 @@ export class Company2Service {
   updateCompany(id: number, data: any): Observable<any> {
     return this.http.put(`http://localhost:3000/companys/${id}`, data);
   }
-
 }

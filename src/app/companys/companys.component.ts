@@ -30,7 +30,7 @@ export class CompanysComponent implements OnInit {
     private compService: Company2Service,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

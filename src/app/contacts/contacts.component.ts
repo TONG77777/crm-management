@@ -17,7 +17,7 @@ export class ContactsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private contService: ContactService
+    private contService: ContactService,
   ) {}
 
   ngOnInit(): void {

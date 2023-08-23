@@ -9,15 +9,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CompanyDetailsComponent implements OnInit {
   selectedTabIndex: number = 0; // default to contact
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id'] && params['details']) {
         if (params['details'] === 'contacts') {
-          this.selectedTabIndex = 0; 
+          this.selectedTabIndex = 0;
         } else if (params['details'] === 'vessels') {
-          this.selectedTabIndex = 1; 
+          this.selectedTabIndex = 1;
         }
       }
     });

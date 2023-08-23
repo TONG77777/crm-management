@@ -1,12 +1,20 @@
 <div class="button-container">
-  <button mat-raised-button color="primary" (click)="openVesselForm(companyId,false)">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="openVesselForm(companyId, false)"
+  >
     + Vessel
   </button>
 </div>
 
 <div class="search-container">
   <mat-form-field class="search-field">
-    <input matInput placeholder="Search Vessel..." (input)="applyFilter($event.target.value)">
+    <input
+      matInput
+      placeholder="Search Vessel..."
+      (input)="applyFilter($event.target.value)"
+    />
   </mat-form-field>
 </div>
 
@@ -18,19 +26,22 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openEditForm(vessel.id,vessel,true)">
+          <button mat-menu-item (click)="openEditForm(vessel.id, vessel, true)">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item (click)="onDeleteVessel(vessel.id,vessel.companyId)">
+          <button
+            mat-menu-item
+            (click)="onDeleteVessel(vessel.id, vessel.companyId)"
+          >
             <mat-icon>delete_forever</mat-icon>
             <span>Delete</span>
           </button>
         </mat-menu>
-        <mat-card-title >{{ vessel.vesselName }}</mat-card-title>
-        <mat-card-subtitle >{{ vessel.code }}</mat-card-subtitle>
+        <mat-card-title>{{ vessel.vesselName }}</mat-card-title>
+        <mat-card-subtitle>{{ vessel.code }}</mat-card-subtitle>
         <mat-card-subtitle>{{ vessel.vpn }}</mat-card-subtitle>
-        
+
         <img
           mat-card-sm-image
           src="https://www.royalihc.com/sites/default/files/styles/twig_image_landscape_1110_600/public/images/79-803-NewSapura-per%20front%20front.webp?h=bb6fceb9&itok=a9owHK_Q"

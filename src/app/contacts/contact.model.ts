@@ -6,6 +6,6 @@ export class Contact {
     public title: string,
     public email: string,
     public phone: string,
-    public notes: string
+    public notes: string,
   ) {}
 }

@@ -1,60 +1,69 @@
 <div mat-dialog-title><h1>Company Form</h1></div>
-<form [formGroup]="companyForm" (ngSubmit)="onCompanyFormSubmit()" (keydown.enter)="preventSubmit($event)">
-
-<div mat-dialog-content>
- 
-  <div class="row">
-    <mat-form-field>
-      <mat-label>Company Name</mat-label>
-      <input
-        matInput
-        type="text"
-        name="name"
-        placeholder="XXX Company"
-        formControlName="name"
-        required
-      />
-      <mat-error *ngIf="companyForm.get('name').hasError('required')">
-         is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="row">
-    <mat-form-field>
-      <mat-label>Priority</mat-label>
-      <mat-select name="priority" formControlName="priority" required>
-        <mat-option value="high">High</mat-option>
-        <mat-option value="medium">Medium</mat-option>
-        <mat-option value="low">Low</mat-option>
-      </mat-select>
-      <mat-error *ngIf="companyForm.get('priority').hasError('required')">
-        is <strong>required</strong>
-     </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="row">
+<form
+  [formGroup]="companyForm"
+  (ngSubmit)="onCompanyFormSubmit()"
+  (keydown.enter)="preventSubmit($event)"
+>
+  <div mat-dialog-content>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input
+          matInput
+          type="text"
+          name="name"
+          placeholder="XXX Company"
+          formControlName="name"
+          required
+        />
+        <mat-error *ngIf="companyForm.get('name').hasError('required')">
+          is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select name="priority" formControlName="priority" required>
+          <mat-option value="high">High</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="low">Low</mat-option>
+        </mat-select>
+        <mat-error *ngIf="companyForm.get('priority').hasError('required')">
+          is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
       <mat-form-field>
         <mat-label>Date Added</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" required>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          required
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="companyForm.get('date').hasError('required')">
           is <strong>required</strong>
-       </mat-error>
+        </mat-error>
       </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Notes</mat-label>
+        <textarea matInput name="notes" formControlName="notes"></textarea>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="row">
-    <mat-form-field>
-      <mat-label>Notes</mat-label>
-      <textarea matInput name="notes" formControlName="notes"></textarea>
-    </mat-form-field>
-  </div>
-</div>
 
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onReset()">{{ data ? 'Cancel' : 'Reset' }}</button>
-  <button mat-raised-button color="primary" type="submit">
-    {{ data ? 'Edit' : 'Submit' }}
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="onReset()">
+      {{ data ? "Cancel" : "Reset" }}
+    </button>
+    <button mat-raised-button color="primary" type="submit">
+      {{ data ? "Edit" : "Submit" }}
+    </button>
+  </div>
 </form>
