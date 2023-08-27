@@ -1,12 +1,7 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
-import {
-  FormControl,
-  Validators,
-  FormGroup,
-  FormBuilder,
-  FormArray,
-} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { Contact } from '../contact.model';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -17,7 +12,7 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ContactFormComponent implements OnInit {
   contactForm: FormGroup;
-  isEditMode: boolean = false;
+  isEditMode = false;
 
   initialFormState: any;
   constructor(
@@ -28,9 +23,9 @@ export class ContactFormComponent implements OnInit {
   ) {
     this.contactForm = this.fb.group({
       companyId: '',
-      contactName: '',
+      contactName: ['', Validators.required],
       title: '',
-      email: '',
+      email: ['', [Validators.required, Validators.email]],
       phone: '',
       notes: '',
     });
@@ -45,16 +40,10 @@ export class ContactFormComponent implements OnInit {
     if (this.data.isEditMode) {
       this.isEditMode = true;
       this.contactForm.patchValue(this.data);
-      this.emailFormControl.setValue(this.data.email);
     }
   }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  onReset() {
+  onReset(): void {
     const isEditMode = this.data.isEditMode;
     if (!isEditMode) {
       this.contactForm.setValue(this.initialFormState);
@@ -63,18 +52,18 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
-  onContactFormSubmit() {
-    if (this.contactForm.valid && this.emailFormControl.valid) {
+  onContactFormSubmit(): void {
+    if (this.contactForm.valid) {
       const companyId = this.data.companyId;
       const isEditMode = this.data.isEditMode;
 
       if (isEditMode) {
         const editContact: Contact = {
           id: this.data.id,
-          companyId: companyId,
+          companyId,
           contactName: this.contactForm.value.contactName,
           title: this.contactForm.value.title,
-          email: this.emailFormControl.value,
+          email: this.contactForm.value.email,
           phone: this.contactForm.value.phone,
           notes: this.contactForm.value.notes,
         };
@@ -94,10 +83,10 @@ export class ContactFormComponent implements OnInit {
       } else {
         const newContact: Contact = {
           id: 0,
-          companyId: companyId,
+          companyId,
           contactName: this.contactForm.value.contactName,
           title: this.contactForm.value.title,
-          email: this.emailFormControl.value,
+          email: this.contactForm.value.email,
           phone: this.contactForm.value.phone,
           notes: this.contactForm.value.notes,
         };
@@ -116,5 +105,8 @@ export class ContactFormComponent implements OnInit {
       }
       this.contactForm.reset();
     }
+  }
+  onCloseDialog(): void {
+    this.dialogRef.close();
   }
 }

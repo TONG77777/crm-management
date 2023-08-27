@@ -1,11 +1,5 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
-import {
-  FormControl,
-  Validators,
-  FormGroup,
-  FormBuilder,
-  FormArray,
-} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Vessel } from '../vessel.model';
 import { VesselService } from 'src/app/services/vessel.service';
@@ -18,7 +12,7 @@ import { VesselService } from 'src/app/services/vessel.service';
 export class VesselFormComponent implements OnInit {
   connections: string[] = ['Remote Desktop', 'TeamViewer'];
   vesselForm: FormGroup;
-  isEditMode: boolean = false;
+  isEditMode = false;
   initialFormState: any;
 
   constructor(
@@ -29,10 +23,10 @@ export class VesselFormComponent implements OnInit {
   ) {
     this.vesselForm = this.fb.group({
       companyId: '',
-      vesselName: '',
-      code: '',
-      ip_add: '',
-      connection: '',
+      vesselName: ['', Validators.required],
+      code: ['', Validators.required],
+      ip_add: ['', Validators.required],
+      connection: ['', Validators.required],
       vpn: '',
       notes: '',
     });
@@ -49,7 +43,7 @@ export class VesselFormComponent implements OnInit {
       this.vesselForm.patchValue(this.data);
     }
   }
-  onReset() {
+  onReset(): void {
     const isEditMode = this.data.isEditMode;
     if (!isEditMode) {
       this.vesselForm.setValue(this.initialFormState);
@@ -58,7 +52,7 @@ export class VesselFormComponent implements OnInit {
     }
   }
 
-  onVesselFormSubmit() {
+  onVesselFormSubmit(): void {
     if (this.vesselForm.valid) {
       const companyId = this.data.companyId;
       const isEditMode = this.data.isEditMode;
@@ -66,7 +60,7 @@ export class VesselFormComponent implements OnInit {
       if (isEditMode) {
         const editVessel: Vessel = {
           id: this.data.id,
-          companyId: companyId,
+          companyId,
           vesselName: this.vesselForm.value.vesselName,
           code: this.vesselForm.value.code,
           ip_add: this.vesselForm.value.ip_add,
@@ -90,7 +84,7 @@ export class VesselFormComponent implements OnInit {
       } else {
         const newVessel: Vessel = {
           id: 0,
-          companyId: companyId,
+          companyId,
           vesselName: this.vesselForm.value.vesselName,
           code: this.vesselForm.value.code,
           ip_add: this.vesselForm.value.ip_add,
@@ -111,5 +105,9 @@ export class VesselFormComponent implements OnInit {
       }
       this.vesselForm.reset();
     }
+  }
+
+  onCloseDialog(): void {
+    this.dialogRef.close();
   }
 }

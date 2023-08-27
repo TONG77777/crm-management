@@ -1,4 +1,9 @@
-<div mat-dialog-title><h1>Company Form</h1></div>
+<div mat-dialog-title class="dialog-title">
+  <h1>Company Form</h1>
+  <button mat-icon-button color="primary" (click)="onCloseDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <form
   [formGroup]="companyForm"
   (ngSubmit)="onCompanyFormSubmit()"
@@ -14,7 +19,6 @@
           name="name"
           placeholder="XXX Company"
           formControlName="name"
-          required
         />
         <mat-error *ngIf="companyForm.get('name').hasError('required')">
           is <strong>required</strong>
@@ -37,12 +41,7 @@
     <div class="row">
       <mat-form-field>
         <mat-label>Date Added</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          formControlName="date"
-          required
-        />
+        <input matInput [matDatepicker]="picker" formControlName="date" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="companyForm.get('date').hasError('required')">

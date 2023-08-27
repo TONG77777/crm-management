@@ -21,6 +21,7 @@ export class CompanysComponent implements OnInit {
     'notes',
     'menu',
   ];
+
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,7 +38,7 @@ export class CompanysComponent implements OnInit {
     this.getCompanyList();
   }
 
-  getCompanyList() {
+  getCompanyList(): void {
     this.compService.getCompanyList().subscribe({
       next: (res) => {
         console.log(res);
@@ -49,7 +50,7 @@ export class CompanysComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -58,7 +59,7 @@ export class CompanysComponent implements OnInit {
     }
   }
 
-  deleteCompany(id: number) {
+  deleteCompany(id: number): void {
     this.compService.deleteCompany(id).subscribe({
       next: (res) => {
         alert('Delete Company Successfully');
@@ -68,7 +69,7 @@ export class CompanysComponent implements OnInit {
     });
   }
 
-  openEditForm(data: any) {
+  openEditForm(data: any): void {
     console.log(data);
     const dialogRef = this.dialog.open(CompanyFormComponent, {
       data,
@@ -83,7 +84,7 @@ export class CompanysComponent implements OnInit {
     });
   }
 
-  openAddForm() {
+  openAddForm(): void {
     const dialogRef = this.dialog.open(CompanyFormComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {

@@ -1,4 +1,9 @@
-<div mat-dialog-title><h1>Vessel Form</h1></div>
+<div mat-dialog-title class="dialog-title">
+  <h1>Vessel Form</h1>
+  <button mat-icon-button color="primary" (click)="onCloseDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <form
   [formGroup]="vesselForm"
   (ngSubmit)="onVesselFormSubmit()"
@@ -14,7 +19,6 @@
           name="vesselName"
           placeholder="XXXXXX"
           formControlName="vesselName"
-          required
         />
         <mat-error *ngIf="vesselForm.get('vesselName').hasError('required')">
           is <strong>required</strong>
@@ -30,7 +34,6 @@
           name="code"
           placeholder="XXXXXX"
           formControlName="code"
-          required
         />
         <mat-error *ngIf="vesselForm.get('code').hasError('required')">
           is <strong>required</strong>
@@ -46,7 +49,6 @@
           name="ip_add"
           placeholder="192.168.XXX.XXX"
           formControlName="ip_add"
-          required
         />
         <mat-error *ngIf="vesselForm.get('ip_add').hasError('required')">
           is <strong>required</strong>
@@ -56,7 +58,7 @@
     <div class="row">
       <mat-form-field>
         <mat-label>Connection</mat-label>
-        <mat-select name="connection" formControlName="connection" required>
+        <mat-select name="connection" formControlName="connection">
           <mat-option
             *ngFor="let connection of connections"
             [value]="connection"

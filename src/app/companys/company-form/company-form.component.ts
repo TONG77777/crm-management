@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { Company } from '../company.model';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
 import { Company2Service } from 'src/app/services/company2.service';
+import { Company } from '../company.model';
 
 @Component({
   selector: 'app-company-form',
@@ -13,7 +13,7 @@ import { Company2Service } from 'src/app/services/company2.service';
 })
 export class CompanyFormComponent implements OnInit {
   companyForm: FormGroup;
-  isEditMode: boolean = false;
+  isEditMode = false;
   initialFormState: any;
   constructor(
     private fb: FormBuilder,
@@ -23,9 +23,9 @@ export class CompanyFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.companyForm = this.fb.group({
-      name: '',
-      priority: '',
-      date: '',
+      name: ['', Validators.required],
+      priority: ['', Validators.required],
+      date: [new Date(), Validators.required],
       notes: '',
     });
     this.initialFormState = this.companyForm.value;
@@ -40,7 +40,7 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
-  onReset() {
+  onReset(): void {
     if (!this.isEditMode) {
       this.companyForm.setValue(this.initialFormState);
     } else {
@@ -48,7 +48,7 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
-  onCompanyFormSubmit() {
+  onCompanyFormSubmit(): void {
     if (this.companyForm.valid) {
       const originalDate = new Date(this.companyForm.value.date);
       const formattedDate = originalDate.toISOString();
@@ -67,7 +67,7 @@ export class CompanyFormComponent implements OnInit {
             alert('Company Edit Successfully');
             this.compService.getCompanyList().subscribe({
               next: (res) => {
-                this.dialogRef.close(true);
+                this.dialogRef.close();
               },
               error: console.log,
             });
@@ -87,7 +87,7 @@ export class CompanyFormComponent implements OnInit {
             alert('Company Added successfully');
             this.compService.getCompanyList().subscribe({
               next: (res) => {
-                this.dialogRef.close(true);
+                this.dialogRef.close();
               },
               error: console.log,
             });
@@ -98,5 +98,9 @@ export class CompanyFormComponent implements OnInit {
         });
       }
     }
+  }
+
+  onCloseDialog(): void {
+    this.dialogRef.close();
   }
 }

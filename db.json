@@ -48,6 +48,13 @@
       "priority": "low",
       "date": "2023-12-31T18:30:00.000Z",
       "notes": "TechSynth Innovations is a dynamic and forward-thinking organization at the forefront of technological advancement. With a passion for innovation, we specialize in developing cutting-edge software solutions that redefine industries and enhance user experiences."
+    },
+    {
+      "id": 8,
+      "name": "erwer",
+      "priority": "medium",
+      "date": "2023-08-27T13:03:31.406Z",
+      "notes": "dfgdsfg"
     }
   ],
   "contacts": [
